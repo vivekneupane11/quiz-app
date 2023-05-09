@@ -1,5 +1,5 @@
 "use client"
-import { useQuizConfig } from '@/store'
+import { configType, useQuizConfig } from '@/store'
 import './globals.css'
 import { Inter } from 'next/font/google'
 
@@ -15,7 +15,7 @@ export default function RootLayout({
   quiz:React.ReactNode,
 
 }) {
-  const config = useQuizConfig((state)=>state.config)
+  const config = useQuizConfig((state:any)=>state.config)
   let render = config.status === 'start' ? quiz : !config.status.length ?children:result;
   return (
     <html lang="en">

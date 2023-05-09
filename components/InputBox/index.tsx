@@ -4,7 +4,7 @@ import React from 'react'
 
 
 export default function InputBox() {
-    const addQuestionNumber = useQuizConfig((state)=>state.addQuestionNumber)
+    const addQuestionNumber = useQuizConfig((state:any)=>state.addQuestionNumber)
 
   return (
 <><div className="relative">

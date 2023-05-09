@@ -3,7 +3,7 @@ import React from "react";
 import { useQuizConfig } from "@/store";
 
 export default function Button() {
-  const changeStatus = useQuizConfig((state) => state.changeStatus);
+  const changeStatus = useQuizConfig((state:any) => state.changeStatus);
 const handleStart = () => {
   changeStatus("start")
 }

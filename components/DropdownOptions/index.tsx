@@ -17,10 +17,10 @@ type CategoryType = {
 export default function DropdownOptions() {
   const [categories,setCategories] = useState<CategoryType[]>([])
 
-  const config = useQuizConfig((state) => state.config);
-  const addCategory = useQuizConfig((state) => state.addCategory);
-  const addLevel = useQuizConfig((state) => state.addLevel);
-  const addType = useQuizConfig((state) => state.addType);
+  const config = useQuizConfig((state:any) => state.config);
+  const addCategory = useQuizConfig((state:any) => state.addCategory);
+  const addLevel = useQuizConfig((state:any) => state.addLevel);
+  const addType = useQuizConfig((state:any) => state.addType);
 
   useEffect(()=>{
     async function fetchCategory(){
