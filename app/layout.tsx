@@ -16,7 +16,7 @@ export default function RootLayout({
 
 }) {
   const config = useQuizConfig((state:any)=>state.config)
-  let render = config.status === 'start' ? quiz : !config.status.length ?children:result;
+  let render = config.status ? quiz : children;
   return (
     <html lang="en">
       <body className={inter.className}>{render }</body>

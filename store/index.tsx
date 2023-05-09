@@ -6,7 +6,8 @@ export type configType = {
     level:string,
     type:string,
     status:string,
-    score:number
+    score:number,
+    config?:any
 }
 
 const defaultConfig = {

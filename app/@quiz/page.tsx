@@ -7,6 +7,9 @@ import { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Player } from "@lottiefiles/react-lottie-player";
 
+ type questionT= 
+  {answers:string[],category:string,correct_answer:string,incorrect_answers:string[],difficulty:string,type:string}
+
 export default function Quiz() {
   const [questions, setQuestions] = useState<any>(null);
   const [answer, setAnswer] = useState("");
@@ -27,7 +30,8 @@ export default function Quiz() {
           `https://opentdb.com/api.php?amount=${config.numberOfQuestion}&category=${config.category.id}&difficulty=${config.level}&type=${config.type}`
         )
       ).json();
-      let shuffledResults = results.map((e) => {
+      console.log(results)
+      let shuffledResults = results.map((e:questionT) => {
         let value = [...e.incorrect_answers, e.correct_answer]
           .map((value) => ({ value, sort: Math.random() }))
           .sort((a, b) => a.sort - b.sort)
@@ -111,7 +115,7 @@ export default function Quiz() {
             {questions[0].question}
           </h4>
           <div className="flex justify-evenly items-center w-full my-20 flex-wrap">
-            {questions[0].answers.map((e) => {
+            {questions[0].answers.map((e:string) => {
               return (
                 <button
                   key={e}
