@@ -7,20 +7,20 @@ import { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Player } from "@lottiefiles/react-lottie-player";
 
- type questionT= 
-  {answers:string[],category:string,correct_answer:string,incorrect_answers:string[],difficulty:string,type:string}
+type questionT =
+  { answers: string[], category: string, correct_answer: string, incorrect_answers: string[], difficulty: string, type: string }
 
 export default function Quiz() {
   const [questions, setQuestions] = useState<any>(null);
   const [answer, setAnswer] = useState("");
   const [loading, setLoading] = useState(false);
-  const changeStatus = useQuizConfig((state:any) => state.changeStatus);
-  const config = useQuizConfig((state:any) => state.config);
-  const addLevel = useQuizConfig((state:any) => state.addLevel);
-  const addCategory = useQuizConfig((state:any) => state.addCategory);
-  const addType = useQuizConfig((state:any) => state.addType);
-  const addQuestionNumber = useQuizConfig((state:any) => state.addQuestionNumber);
-  const setScore = useQuizConfig((state:any) => state.setScore);
+  const changeStatus = useQuizConfig((state: any) => state.changeStatus);
+  const config = useQuizConfig((state: any) => state.config);
+  const addLevel = useQuizConfig((state: any) => state.addLevel);
+  const addCategory = useQuizConfig((state: any) => state.addCategory);
+  const addType = useQuizConfig((state: any) => state.addType);
+  const addQuestionNumber = useQuizConfig((state: any) => state.addQuestionNumber);
+  const setScore = useQuizConfig((state: any) => state.setScore);
 
   useEffect(() => {
     async function getQuestions() {
@@ -31,7 +31,7 @@ export default function Quiz() {
         )
       ).json();
       console.log(results)
-      let shuffledResults = results.map((e:questionT) => {
+      let shuffledResults = results.map((e: questionT) => {
         let value = [...e.incorrect_answers, e.correct_answer]
           .map((value) => ({ value, sort: Math.random() }))
           .sort((a, b) => a.sort - b.sort)
@@ -59,6 +59,11 @@ export default function Quiz() {
     setAnswer("");
   };
 
+  const decodeHtmlEntities = (str: String) => {
+    const parser = new DOMParser();
+    const decodedString = parser.parseFromString(`<!doctype html><body>${str}`, 'text/html').body.textContent;
+    return decodedString;
+  }
   return (
     <section className="flex flex-col justify-center items-center p-20 ">
       {questions?.length ? (
@@ -112,10 +117,10 @@ export default function Quiz() {
       {!!questions && !!questions?.length && (
         <section className="shadow-2xl my-10 p-10 w-[90%] rounded-lg flex flex-col justify-center items-center shadow-blue-200  ">
           <h4 className="mb-4 text-center  text-xl font-extrabold leading-none tracking-tight md:text-2xl lg:text-4xl  text-blue-600 dark:text-blue-500">
-            {questions[0].question}
+            {decodeHtmlEntities(questions[0].question)}
           </h4>
           <div className="flex justify-evenly items-center w-full my-20 flex-wrap">
-            {questions[0].answers.map((e:string) => {
+            {questions[0].answers.map((e: string) => {
               return (
                 <button
                   key={e}
@@ -131,7 +136,7 @@ export default function Quiz() {
                     }
                   )}
                 >
-                  {e}
+                  {decodeHtmlEntities(e)}
                 </button>
               );
             })}
@@ -148,3 +153,4 @@ export default function Quiz() {
     </section>
   );
 }
+
